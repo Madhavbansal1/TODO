@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TodoList from './TodoList'
 import Form from './Form'
 import {v4 as uuid} from 'uuid'
 
 function TodoApp() {
 
-    const dummyarray = [
-        { id: uuid(), title: 'Todo 1', checked: false  },
-        { id: uuid(), title: 'Todo 2', checked: false  },
-        { id: uuid(), title: 'Todo 3',checked: false  },
-    ]
+    const dummyarray = JSON.parse(window.localStorage.getItem('todos') || '[]');
 
+    
     const[todos,setTodos] = useState(dummyarray);
+    
+
+    useEffect(()=>{
+        localStorage.setItem('todos', JSON.stringify(todos));
+    },[todos]);
+
     function addTodo(todo){
         setTodos([...todos, todo]);
     }

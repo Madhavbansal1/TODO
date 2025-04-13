@@ -3,18 +3,26 @@ import {v4 as uuid} from 'uuid';
 
 function Form(props) {
     let [input,setInput] = useState();
+    const[isValid,setisValid] = useState(true);
     const inputChangeHandler = (event) => {
         setInput(event.target.value);
+        if(input.trim().length > 0){
+            setisValid(true);
+        }
     }
     const formSubmitHandler = (event) => {
         event.preventDefault();
+        if(input.trim().length === 0){
+            setisValid(false);
+            return;
+        }
         const newTodo = {
             id: uuid(),
             title: input,
             checked: false
         }
         props.addTodo(newTodo);
-        console.log(input);
+
         setInput('');
     }
     return (
