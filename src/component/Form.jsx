@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import {v4 as uuid} from 'uuid';
 
 function Form(props) {
     let [input,setInput] = useState();
@@ -8,8 +9,9 @@ function Form(props) {
     const formSubmitHandler = (event) => {
         event.preventDefault();
         const newTodo = {
-            id: props.todos.length + 1,
+            id: uuid(),
             title: input,
+            checked: false
         }
         props.addTodo(newTodo);
         console.log(input);
